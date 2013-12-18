@@ -1,3 +1,4 @@
+require 'action_view'
 require 'action_controller'
 require 'action_controller/log_subscriber'
 
@@ -120,7 +121,6 @@ module ActionController
 
       MODULES - modules
     end
-    
 
     MODULES = [
       HideActions,
@@ -146,10 +146,15 @@ module ActionController
       Instrumentation
     ]
 
+    if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR > 0
+      include AbstractController::Rendering
+      include ActionView::Rendering
+    end
+
     MODULES.each do |mod|
       include mod
     end
-    
+
     if Rails::VERSION::MAJOR == 4
       include StrongParameters
     end
