@@ -7,7 +7,7 @@ class OmgController < ActionController::API
     render :text => "OMG"
   end
 
-  def show
+  def unauthorized
     render :text => "test", :status => :unauthorized
   end
 end
@@ -31,7 +31,7 @@ class ApiApplicationTest < ActiveSupport::TestCase
   end
 
   def test_proper_status_set
-    get "/omg/1"
+    get "/omg/unauthorized"
     assert_equal 401, last_response.status
   end
 
