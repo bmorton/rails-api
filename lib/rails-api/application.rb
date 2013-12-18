@@ -80,7 +80,7 @@ module Rails
         middleware.use ::ActionDispatch::RemoteIp, config.action_dispatch.ip_spoofing_check, config.action_dispatch.trusted_proxies
 
         unless config.cache_classes
-          middleware.use ::ActionDispatch::Reloader, lambda { app.reload_dependencies? }
+          middleware.use ::ActionDispatch::Reloader#, lambda { app.reload_dependencies? }
         end
 
         middleware.use ::ActionDispatch::Callbacks
