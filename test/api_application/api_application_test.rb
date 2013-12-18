@@ -6,6 +6,10 @@ class OmgController < ActionController::API
   def index
     render :text => "OMG"
   end
+
+  def show
+    render :text => "test", :status => :unauthorized
+  end
 end
 
 class ApiApplicationTest < ActiveSupport::TestCase
@@ -24,6 +28,11 @@ class ApiApplicationTest < ActiveSupport::TestCase
       rails4? ? expected_middleware_stack_rails4 : expected_middleware_stack_rails3
 
     assert_equal expected_middleware_stack, app.middleware.map(&:klass).map(&:name)
+  end
+
+  def test_proper_status_set
+    get "/omg/1"
+    assert_equal 401, last_response.status
   end
 
   private
